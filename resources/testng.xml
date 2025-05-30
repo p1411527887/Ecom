@@ -2,8 +2,23 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="eComer">
     <test name="Run on Firefox Browser">
+        <parameter name="Browser" value="Firefox"></parameter>
         <classes>
-            <class name="ecom.users.User_01_Register_Login"/>
+            <class name="TC_02_payFullWithEbtCardMuntilBower"/>
         </classes>
     </test>
+
+    <test name="Run on Chrome Browser">
+        <parameter name="Browser" value="Chrome"></parameter>
+        <classes>
+            <class name="TC_02_payFullWithEbtCardMuntilBower"/>
+        </classes>
+    </test>
+
+<!--    <test name="Run on Safari Browser">-->
+<!--        <parameter name="Browser" value="Safari"></parameter>-->
+<!--        <classes>-->
+<!--            <class name="TC_02_payFullWithEbtCardMuntilBower"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 </suite>
