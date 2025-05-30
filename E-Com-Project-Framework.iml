@@ -7,9 +7,11 @@
       <sourceFolder url="file://$MODULE_DIR$/interfaces" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/testcase" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/JavaSDET" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="selenium-testNG" level="project" />
+    <orderEntry type="library" name="Lib_Driver_Manager" level="project" />
   </component>
 </module>
