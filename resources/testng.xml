@@ -1,24 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="eComer">
-    <test name="Run on Firefox Browser">
-        <parameter name="Browser" value="Firefox"></parameter>
-        <classes>
-            <class name="TC_02_payFullWithEbtCardMuntilBower"/>
-        </classes>
-    </test>
+    <!--    <test name="Run on Firefox Browser">-->
+    <!--        <parameter name="Browser" value="Firefox"></parameter>-->
+    <!--        <classes>-->
+    <!--            -->
+    <!--        </classes>-->
+    <!--    </test>-->
 
     <test name="Run on Chrome Browser">
         <parameter name="Browser" value="Chrome"></parameter>
         <classes>
-            <class name="TC_02_payFullWithEbtCardMuntilBower"/>
+
+            <class name="Ecom_TC04_SwitchProductPage"/>
+            <class name="Ecom_TC01_LoginWithValidData"/>
+            <class name="Ecom_TC02_InputAndVerifyContacUsPage"/>
+            <class name="Ecom_TC03_VerifyProductPage"/>
+
         </classes>
     </test>
 
-<!--    <test name="Run on Safari Browser">-->
-<!--        <parameter name="Browser" value="Safari"></parameter>-->
-<!--        <classes>-->
-<!--            <class name="TC_02_payFullWithEbtCardMuntilBower"/>-->
-<!--        </classes>-->
-<!--    </test>-->
+    <!--    <test name="Run on Safari Browser">-->
+    <!--        <parameter name="Browser" value="Safari"></parameter>-->
+    <!--        <classes>-->
+    <!--            <class name="TC_02_payFullWithEbtCardMuntilBower"/>-->
+    <!--        </classes>-->
+    <!--    </test>-->
 </suite>
