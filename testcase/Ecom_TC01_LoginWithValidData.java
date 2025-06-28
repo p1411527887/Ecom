@@ -3,6 +3,7 @@ import PageObject.LoginPageObject;
 import commons.BaseTest;
 import commons.PageGenerator;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WindowType;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -30,6 +31,10 @@ public class Ecom_TC01_LoginWithValidData extends BaseTest {
         loginPage.inptuPassWordTextBox();
         homePage = loginPage.clickToLoginButton();
         Assert.assertEquals(homePage.loginSuccessTitle(), "Logged in as phat.truong@mercatus.com");
+        WebDriver newWindow = driver.switchTo().newWindow(WindowType.WINDOW);
+
+        newWindow.get("https://google.com");
+        sleepInSecond(5);
     }
 
     @AfterClass

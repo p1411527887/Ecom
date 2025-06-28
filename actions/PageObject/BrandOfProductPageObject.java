@@ -1,7 +1,6 @@
 package PageObject;
 
 import PageUI.BrandOfProductPageUi;
-import commons.BasePage;
 import commons.PageGenerator;
 import org.openqa.selenium.WebDriver;
 
@@ -60,4 +59,32 @@ public class BrandOfProductPageObject extends ProductPageObject {
         clickToElement(BrandOfProductPageUi.BRANDS_BIBA_LINK);
         return PageGenerator.getBibaBrandPage(driver);
     }
+
+    public BrandOfProductPageObject getBrandPageByDynamicLocator(String pageName) {
+        waitForElementClickable(BrandOfProductPageUi.DYNAMIC_BRANDS_LINK, pageName);
+        clickToElement(BrandOfProductPageUi.DYNAMIC_BRANDS_LINK, pageName);
+        switch (pageName) {
+            case "Polo":
+                return PageGenerator.getPoloBrandPage(driver);
+            case "H&M":
+                return PageGenerator.getHAndMBrandPage(driver);
+            case "Madame":
+                return PageGenerator.getMadameBrandPage(driver);
+            case "Mast & Harbour":
+                return PageGenerator.getMastAndHarbourBrandPage(driver);
+            case "Babyhug":
+                return PageGenerator.getBabyHugBrandPage(driver);
+            case "Allen Solly Junior":
+                return PageGenerator.getAllenSollyJuniorBrandPage(driver);
+            case "Kookie Kids":
+                return PageGenerator.getKookieKidsBrandPage(driver);
+            case "Biba":
+                return PageGenerator.getBibaBrandPage(driver);
+            default:
+                throw new RuntimeException("page name is not valid");
+        }
+
+    }
+
+
 }

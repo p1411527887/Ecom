@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="eComer">
+    <listeners>
+        <listener class-name="commons.MethodListener"></listener>
+    </listeners>
     <!--    <test name="Run on Firefox Browser">-->
     <!--        <parameter name="Browser" value="Firefox"></parameter>-->
     <!--        <classes>-->
     <!--            -->
     <!--        </classes>-->
     <!--    </test>-->
-
+    <parameter name="EcomSite" value="https://automationexercise.com/login"></parameter>
+    <parameter name="BackOfficeSite"
+               value="https://testing.qa.prod.self-point.com/backend/?domain=eliy.sites.self-point.com#!/login"></parameter>
     <test name="Run on Chrome Browser">
         <parameter name="Browser" value="Chrome"></parameter>
         <classes>
 
-            <class name="Ecom_TC04_SwitchProductPage"/>
-            <class name="Ecom_TC01_LoginWithValidData"/>
-            <class name="Ecom_TC02_InputAndVerifyContacUsPage"/>
-            <class name="Ecom_TC03_VerifyProductPage"/>
+            <class name="Ecom_TC07_UploadFileByDynamiclocator"/>
+
 
         </classes>
     </test>

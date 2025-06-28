@@ -9,4 +9,5 @@ public class BrandOfProductPageUi {
     public static final String BRANDS_ALLEN_SOLLY_JUNIOR_LINK = "//a[contains(@href, 'Allen Solly Junior')]";
     public static final String BRANDS_KOOKIE_KID_LINK = "//a[contains(@href, 'Kookie Kids')]";
     public static final String BRANDS_BIBA_LINK = "//a[contains(@href, 'Biba')]";
+    public static final String DYNAMIC_BRANDS_LINK = "//a[contains(@href, '%s')]";
 }

@@ -1,6 +1,6 @@
 package commons;
 
-import PageObject.*;
+import PageObject.BasePageUi;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.Color;
@@ -116,12 +116,64 @@ public class BasePage {
         return driver.findElement(getByXpath(xpathLocator));
     }
 
+    public String castRestParameter(String xpathLocator, String... restParameter) {
+        return String.format(xpathLocator, (Object[]) restParameter);
+    }
+
+//    public String castRestParameter(String xpathLocator, Object... restParameter) {
+//        return String.format(xpathLocator, restParameter);
+//    }
+
+    public By getByLocator(String prefixLocator) {
+        By by = null;
+        if (prefixLocator.startsWith("id") || prefixLocator.startsWith("Id") || prefixLocator.startsWith("ID")) {
+            by = By.id(prefixLocator.substring(3));
+        } else if (prefixLocator.startsWith("class") || prefixLocator.startsWith("Class") || prefixLocator.startsWith("CLASS")) {
+            by = By.className(prefixLocator.substring(6));
+        } else if (prefixLocator.startsWith("name") || prefixLocator.startsWith("Name") || prefixLocator.startsWith("NAME")) {
+            by = By.name(prefixLocator.substring(5));
+        } else if (prefixLocator.startsWith("tagname") || prefixLocator.startsWith("Tagname") || prefixLocator.startsWith("TAGNAME")) {
+            by = By.tagName(prefixLocator.substring(8));
+        } else if (prefixLocator.startsWith("css") || prefixLocator.startsWith("CSS") || prefixLocator.startsWith("Css")) {
+            by = By.cssSelector(prefixLocator.substring(4));
+        } else if (prefixLocator.startsWith("xpath") || prefixLocator.startsWith("Xpath") || prefixLocator.startsWith("XPATH")) {
+            by = By.xpath(prefixLocator.substring(6));
+        } else {
+            throw new RuntimeException("Locator type is not support!!!!");
+        }
+        return by;
+    }
+
+
+    protected void clickToElement(String xpathLocator, String restParameter) {
+        getElement(castRestParameter(xpathLocator, restParameter)).click();
+    }
+
     protected void clickToElement(String xpathLocator) {
         getElement(xpathLocator).click();
     }
 
     protected void sendkeyToElement(String xpathLocator, String keysToSend) {
+        getElement(xpathLocator).clear();
         getElement(xpathLocator).sendKeys(keysToSend);
+    }
+
+    public void uploadMultipleFiles(String... fileNames) {
+        // Lấy ra đường dẫn của thư mục upload file
+        String filePath = GlobalConstants.UPLOAD_PATH;
+        String fullFileName = "";
+
+        for (String file : fileNames) {
+            fullFileName += filePath + file + "\n";
+        }
+
+        fullFileName = fullFileName.trim();
+        getElement(BasePageUi.UPLOAD_FILE_TYPE).sendKeys(fullFileName);
+    }
+
+    protected void sendkeyToElement(String xpathLocator, String keysToSend, String restParameter) {
+        getElement(castRestParameter(xpathLocator, restParameter)).clear();
+        getElement(castRestParameter(xpathLocator, restParameter)).sendKeys(keysToSend);
     }
 
     /**
@@ -130,6 +182,10 @@ public class BasePage {
 
     protected void selectItemInDefaultDropDown(String xpathLocator, String textItem) {
         new Select(getElement(xpathLocator)).selectByVisibleText(textItem);
+    }
+
+    protected void selectItemInDefaultDropDown(String xpathLocator, String textItem, String keysToSend, String restParameter) {
+        new Select(getElement(castRestParameter(xpathLocator, restParameter))).selectByVisibleText(textItem);
     }
 
     protected String getSelectedItemInDefaultDropDown(String xpathLocator) {
@@ -151,6 +207,14 @@ public class BasePage {
 
     protected String getAttributeValue(String xpathLocator, String attributeName) {
         return getElement(xpathLocator).getAttribute(attributeName);
+    }
+
+    protected String getAttributeValue(String xpathLocator, String attributeName, String restParameter) {
+        return getElement(castRestParameter(xpathLocator, restParameter)).getAttribute(attributeName);
+    }
+
+    protected String getTextElement(String xpathLocator, String restParameter) {
+        return getElement(castRestParameter(xpathLocator, restParameter)).getText();
     }
 
     protected String getTextElement(String xpathLocator) {
@@ -189,12 +253,24 @@ public class BasePage {
         return getElement(xpathLocator).isSelected();
     }
 
+    protected boolean isElementSelected(String xpathLocator, String restParameter) {
+        return getElement(castRestParameter(xpathLocator, restParameter)).isSelected();
+    }
+
     protected boolean isElementDisplayed(String xpathLocator) {
         return getElement(xpathLocator).isDisplayed();
     }
 
+    protected boolean isElementDisplayed(String xpathLocator, String restParameter) {
+        return getElement(castRestParameter(xpathLocator, restParameter)).isDisplayed();
+    }
+
     protected boolean isElementEnabled(String xpathLocator) {
         return getElement(xpathLocator).isEnabled();
+    }
+
+    protected boolean isElementEnabled(String xpathLocator, String restParameter) {
+        return getElement(castRestParameter(xpathLocator, restParameter)).isEnabled();
     }
 
     protected void switchToIframe(String xpathLocator) {
@@ -311,9 +387,22 @@ public class BasePage {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(getByXpath(xpathLocator)));
     }
 
+    protected WebElement waitForElementVisible(String xpathLocator, String restParameter) {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(getByXpath(castRestParameter(xpathLocator, restParameter))));
+    }
+
     protected boolean waitForElementPresence(String xpathLocator) {
         try {
             wait.until(ExpectedConditions.presenceOfElementLocated(getByXpath(xpathLocator)));
+            return true;  // Element có mặt
+        } catch (TimeoutException e) {
+            return false; // Element không có mặt sau khi timeout
+        }
+    }
+
+    protected boolean waitForElementPresence(String xpathLocator, String restParameter) {
+        try {
+            wait.until(ExpectedConditions.presenceOfElementLocated(getByXpath(castRestParameter(xpathLocator, restParameter))));
             return true;  // Element có mặt
         } catch (TimeoutException e) {
             return false; // Element không có mặt sau khi timeout
@@ -324,12 +413,24 @@ public class BasePage {
         return wait.until(ExpectedConditions.invisibilityOfElementLocated(getByXpath(xpathLocator)));
     }
 
+    protected boolean waitForElementInvisible(String xpathLocator, String restParameter) {
+        return wait.until(ExpectedConditions.invisibilityOfElementLocated(getByXpath(castRestParameter(xpathLocator, restParameter))));
+    }
+
+    protected void waitForElementClickable(String xpathLocator, String restParameter) {
+        wait.until(ExpectedConditions.elementToBeClickable(getByXpath(castRestParameter(xpathLocator, restParameter))));
+    }
+
     protected void waitForElementClickable(String xpathLocator) {
         wait.until(ExpectedConditions.elementToBeClickable(getByXpath(xpathLocator)));
     }
 
     protected void waitForElementSelected(String xpathLocator) {
         wait.until(ExpectedConditions.elementToBeSelected(getByXpath(xpathLocator)));
+    }
+
+    protected void waitForElementSelected(String xpathLocator, String restParameter) {
+        wait.until(ExpectedConditions.elementToBeSelected(getByXpath(castRestParameter(xpathLocator, restParameter))));
     }
 
     /**
