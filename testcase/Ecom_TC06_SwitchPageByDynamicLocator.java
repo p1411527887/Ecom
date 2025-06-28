@@ -9,7 +9,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 
-public class Ecom_TC04_SwitchProductPage extends BaseTest {
+public class Ecom_TC06_SwitchPageByDynamicLocator extends BaseTest {
 
     private WebDriver driver;
     private LoginPageObject loginPage;
@@ -32,28 +32,36 @@ public class Ecom_TC04_SwitchProductPage extends BaseTest {
     }
 
     @Test
-    public void TC_04_SwitchProductPage() {
+    public void TC_TC06_SwitchPageByDynamicLocator() {
         loginPage = PageGenerator.getLoginPage(driver);
         loginPage.inputUserNameTextBox();
         loginPage.inptuPassWordTextBox();
         homePage = loginPage.clickToLoginButton();
         Assert.assertEquals(homePage.loginSuccessTitle(), "Logged in as phat.truong@mercatus.com");
-
-
-    }
-
-    @Test
-    public void TC_10_Swicht() {
         productPage = homePage.clickToProductLink();
         brandOfProductPage = PageGenerator.getBrandOfProductPage(driver);
-        poloBrandPage = brandOfProductPage.getPoloBrandPage();
-        hAndMBrandPage = brandOfProductPage.getHAndMBrandPage();
-        mastAndHarbourBrandPage = brandOfProductPage.getMastAndHarbourBrandPage();
-        babyHugBrandPage = brandOfProductPage.getBabyHugBrandPage();
-        allenSollyJuniorBrandPage = brandOfProductPage.getAllenSollyJuniorBrandPage();
-        kookieKidsBrandPage = brandOfProductPage.getKookieKidsBrandPage();
-        bibaBrandPage = brandOfProductPage.getBibaBrandPage();
-        driver.navigate();
+
+        brandOfProductPage.getBrandPageByDynamicLocator("Polo");
+        brandOfProductPage = PageGenerator.getPoloBrandPage(driver);
+
+        brandOfProductPage.getBrandPageByDynamicLocator("H&M");
+        brandOfProductPage = PageGenerator.getHAndMBrandPage(driver);
+
+        brandOfProductPage.getBrandPageByDynamicLocator("Madame");
+        brandOfProductPage = PageGenerator.getMadameBrandPage(driver);
+
+        brandOfProductPage.getBrandPageByDynamicLocator("Mast & Harbour");
+        brandOfProductPage = PageGenerator.getMastAndHarbourBrandPage(driver);
+
+        brandOfProductPage.getBrandPageByDynamicLocator("Babyhug");
+        brandOfProductPage = PageGenerator.getBabyHugBrandPage(driver);
+
+        brandOfProductPage.getBrandPageByDynamicLocator("Allen Solly Junior");
+        brandOfProductPage = PageGenerator.getAllenSollyJuniorBrandPage(driver);
+
+        brandOfProductPage.getBrandPageByDynamicLocator("Kookie Kids");
+        brandOfProductPage = PageGenerator.getKookieKidsBrandPage(driver);
+
     }
 
 
