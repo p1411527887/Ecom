@@ -3,6 +3,9 @@
 <suite name="eComer">
     <listeners>
         <listener class-name="commons.MethodListener"></listener>
+        <listener class-name="reportConfigs.ReportNGListener"></listener>
+        
+
     </listeners>
     <!--    <test name="Run on Firefox Browser">-->
     <!--        <parameter name="Browser" value="Firefox"></parameter>-->
